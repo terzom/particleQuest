@@ -32,23 +32,17 @@ new particleQuest({
 
 Wait for the script to load with `window.onload` or `DOMContentLoaded`.
 
-| Field                             | Description                                                                                                                                            | Example of value   |
-| :-------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------- |
-| `canvasSelector`                  | The selector for the canvas element can be targeted via class, like `.myCanvas`, or id, like `#myCanvas`.                                              |
-| This is the only mandatory field. | `"#myCanvas"`                                                                                                                                          |
-| `speed`                           | How fast the particle shrinks from X-size to 0.                                                                                                        | `200`              |
-| `speedToEndDirection`             | How long it will take for the particles reach the end direction.                                                                                       | `100`              |
-| `textParticles`\*                 | Use emojis, wrapped in an array with quotation marks as shown in the example. You can get emojis from GetEmoji.                                        | `["🚀","🛸","🛰️"]` |
-| `urlImages`\*                     | Instead of emojis, you can use images. Use the full URL or a relative path. Ensure they are in an array with quotation marks, as shown in the example. |
+| Field                 | Description                                                                                                                                                                                                                                                          | Example of value                                        |
+| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ |
+| `canvasSelector`      | The selector for the canvas element can be targeted via class, like `.myCanvas`, or id, like `#myCanvas`. <br/> This is the only mandatory field                                                                                                                     | `"#myCanvas"`                                           |
+| `speed`               | How fast the particle shrinks from X-size to 0.                                                                                                                                                                                                                      | `200`                                                   |
+| `speedToEndDirection` | How long it will take for the particles reach the end direction.                                                                                                                                                                                                     | `100`                                                   |
+| `textParticles`\*     | Use emojis, wrapped in an array with quotation marks as shown in the example. You can get emojis from <a href="https://getemoji.com/" target="_blank">GetEmoji</a>.                                                                                                  | `["🚀","🛸","🛰️"]`                                      |
+| `urlImages`\*         | Instead of emojis, you can use images. Use the full URL or a relative path. Ensure they are in an array with quotation marks, as shown in the example. <br/>The images needs to be square.<br/>**NOTE:**<br/>You can only have either `textParticles` or `urlImages` | `["./assets/star.png", "https://my-url.com/star2.png"]` |
+| `circleParticles`\*   | Set to true if you want the particles to be circles                                                                                                                                                                                                                  | `true`                                                  |
+| `maxParticleSize`     | The maximum size of a particle.                                                                                                                                                                                                                                      | `200`                                                   |
+| `fps`                 | If you think there are too many particles, you can use this to set a limit                                                                                                                                                                                           | `60`                                                    |
 
-The images needs to be square.
-
-**NOTE:**
-You can only have either `textParticles` or `urlImages` | `["./assets/star.png", "https://my-url.com/star2.png"]` |
-| `circleParticles`\* | Set to true if you want the particles to be circles | `true` |
-| `maxParticleSize` | The maximum size of a particle. | `200` |
-| `fps` | If you think there are too many particles, you can use this to set a limit | `60` |
-
-- You can only have either `circleParticles` , `textParticles` or `urlImages`
+\* You can only have either `circleParticles`, `textParticles` or `urlImages`
 
 ![Food animation](./assets/images/food.gif)
