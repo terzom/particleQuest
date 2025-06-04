@@ -1,0 +1,383 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="assets/style.css" />
+    <meta charset="UTF-8" />
+    <title>Particle Quest</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/atom-one-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </head>
+
+  <body>
+    <div class="hero">
+      <div class="middle">
+        <h1>Particle Quest</h1>
+        <p class="sub">Try for yourself!</p>
+      </div>
+      <canvas id="myCanvas"></canvas>
+      <div class="tool">
+        <div class="toggle">Open/Close controller</div>
+        <div class="item">
+          <label for="speed">Shrink size speed: <a href="#settings">?</a></label
+          ><br />
+          <input type="number" id="speed" value="200" />
+        </div>
+        <div class="item">
+          <label for="speedToEndDirection">Direction speed: <a href="#settings">?</a></label>
+          <input type="number" id="speedToEndDirection" value="100" /><br />
+        </div>
+        <div class="item">
+          <label for="maxParticleSize">Max particle size: <a href="#settings">?</a></label>
+          <input type="number" id="maxParticleSize" value="200" /><br />
+        </div>
+        <div class="content">
+          <hr class="top" />
+          <p>Emojis or Images, separate with comma</p>
+          <small>Empty the Emojis field to test URL images</small>
+          <hr class="bottom" />
+          <div class="contentGroup">
+            <div style="width: 95px">
+              <label for="circleParticles">Circles: <a href="#settings">?</a></label>
+              <input type="checkbox" id="circleParticles" value="true" />
+            </div>
+            <div class="itemOr">
+              <small>OR</small>
+            </div>
+            <div>
+              <label for="textParticles">Emojis: <a href="#settings">?</a></label>
+              <input type="text" id="textParticles" value="🚀,🛸,🛰️" /><br />
+            </div>
+            <div class="itemOr">
+              <small>OR</small>
+            </div>
+            <div>
+              <label for="urlImages">URL images: <a href="#settings">?</a></label>
+              <input
+                type="text"
+                id="urlImages"
+                value="./assets/star01.png, https://freepngimg.com/thumb/emoji/85280-emoticon-emotion-samsung-iphone-galaxy-emoji.png"
+              /><br />
+            </div>
+          </div>
+        </div>
+        <button onclick="runParticleQuest()">Run Particle Quest</button>
+      </div>
+    </div>
+    <div class="wrapper">
+      <h1>Introduction</h1>
+      <p>
+        In this guide, we'll explore the particle animation script, Particle Quest. We'll cover how to set it up and the
+        customization options available. This script allows you to create dynamic and interactive animations on a canvas
+        element.
+      </p>
+      <p>
+        The canvas has no set background, so you can place it wherever you want, and the particles will appear above.
+        You have options for circles, emojis, or square images. You can get emojis from
+        <a href="https://getemoji.com/" target="_blank">GetEmoji</a>.
+      </p>
+      <h1>Setting Up</h1>
+      <p>
+        To get started, follow these steps to include the particleQuest JavaScript file and adjust the script to target
+        an existing canvas element:
+      </p>
+      <p>
+        <strong>1. </strong> Include the particleQuest script in the header or footer of your HTML file, no other scrips
+        are required:
+      </p>
+      <pre><code class="language-html">&lt;script src="./particleQuest.min.js"&gt;&lt;/script&gt;</code></pre>
+
+      <p><strong>2. </strong>Add a canvas element to your HTML:</p>
+      <pre><code class="language-html">&lt;canvas id=&quot;myCanvas&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;
+</code></pre>
+      <p><strong>3. </strong> Adjust the script to initialize the particle animation on an existing canvas element:</p>
+      <pre><code class="language-html">&lt;script&gt;
+    window.onload = function () {
+        new particleQuest({
+            canvasSelector: &quot;#myCanvas&quot;,
+            speed: 200,
+            speedToEndDirection: 200,
+            maxParticleSize: 200,
+            textParticles: [🚀,🛸,🛰️],
+        });
+    };
+&lt;/script&gt;</code></pre>
+      <p>
+        The <code class="inline">window.onload</code> event might not work in all cases. There are alternatives, and you
+        can see one in the "In Space and Beyond" code example at the end of the page.
+      </p>
+
+      <h1 id="settings">Available settings</h1>
+      <p>Here are the available fields you can use to customize the particle animation and examples:</p>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+          <th>Example of value</th>
+        </tr>
+        <tr>
+          <td><code class="inline">canvasSelector</code></td>
+          <td>
+            The selector for the canvas element can be targeted via class, like <code class="inline">.myCanvas</code>,
+            or id, like <code class="inline">#myCanvas</code>. <br />This is the only mandatory field.
+          </td>
+          <td><code class="inline">"#myCanvas"</code></td>
+        </tr>
+        <tr>
+          <td><code class="inline">speed</code></td>
+          <td>How fast the particle shrinks from X-size to 0.</td>
+          <td><code class="inline">200</code></td>
+        </tr>
+        <tr>
+          <td><code class="inline">speedToEndDirection</code></td>
+          <td>How long it will take for the particles reach the end direction.</td>
+          <td><code class="inline">100</code></td>
+        </tr>
+        <tr>
+          <td><code class="inline">textParticles</code>*</td>
+          <td>
+            Use emojis, wrapped in an array with quotation marks as shown in the example. You can get emojis from
+            <a href="https://getemoji.com/" target="_blank">GetEmoji</a>.
+          </td>
+          <td><code class="inline">["🚀","🛸","🛰️"]</code></td>
+        </tr>
+        <tr>
+          <td><code class="inline">urlImages</code>*</td>
+          <td>
+            Instead of emojis, you can use images. Use the full URL or a relative path. Ensure they are in an array with
+            quotation marks, as shown in the example. <br /><br />
+            The images needs to be square.<br /><br /><strong>NOTE:</strong><br />
+            You can only have either <code class="inline">textParticles</code> or <code class="inline">urlImages</code>
+          </td>
+          <td><code class="inline">["./assets/star.png", "https://my-url.com/star2.png"]</code></td>
+        </tr>
+        <tr>
+          <td><code class="inline">circleParticles</code>*</td>
+          <td>Set to true if you want the particles to be circles</td>
+          <td><code class="inline">true</code></td>
+        </tr>
+        <tr>
+          <td><code class="inline">maxParticleSize</code></td>
+          <td>The maximum size of a particle.</td>
+          <td><code class="inline">200</code></td>
+        </tr>
+        <tr>
+          <td><code class="inline">fps</code></td>
+          <td>If you think there are too many particles, you can use this to set a limit</td>
+          <td><code class="inline">60</code></td>
+        </tr>
+      </table>
+      <p>
+        <small
+          >* You can only have either <code class="inline">circleParticles</code> ,
+          <code class="inline">textParticles</code> or <code class="inline">urlImages</code></small
+        >
+      </p>
+      <br />
+      <div style="text-align: center">
+        <h2>Missing a feature?</h2>
+        <p>
+          Contact me on <a href="https://github.com/terzom/particleQuest" target="_blank">GitHub</a> to request new
+          feature or support.
+        </p>
+      </div>
+      <h1>Inspiration</h1>
+      <p>
+        Mainly you can use on top of the website just like this demo. You can also use it in "cards" and make your
+        website more alive with movements.
+      </p>
+      <div class="card-wrapper">
+        <div class="card">
+          <img src="https://picsum.photos/302" alt="Card image" />
+          <canvas id="animated-card-1" class="card-canvas" width="300" height="300"></canvas>
+          <h2>Card Title 1</h2>
+          <p>Card description</p>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/301" alt="Card image" />
+          <canvas id="animated-card-2" class="card-canvas" width="300" height="300"></canvas>
+
+          <h2>Card Title 2</h2>
+          <p>Card description</p>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/300" alt="Card image" />
+          <canvas id="animated-card-3" class="card-canvas" width="300" height="300"></canvas>
+          <h2>Card Title 3</h2>
+          <p>Card description</p>
+        </div>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            if (typeof particleQuest !== 'undefined') {
+              new particleQuest({
+                canvasSelector: '#animated-card-1',
+                speed: 100,
+                speedToEndDirection: 1000,
+                textParticles: ['👻', '👋'],
+                maxParticleSize: 200,
+              });
+
+              new particleQuest({
+                canvasSelector: '#animated-card-2',
+                speed: 500,
+                speedToEndDirection: 2000,
+                textParticles: ['😽'],
+                maxParticleSize: 200,
+              });
+
+              new particleQuest({
+                canvasSelector: '#animated-card-3',
+                speed: 100,
+                speedToEndDirection: 1000,
+                urlImages: ['./assets/star01.png', './assets/star02.png', './assets/star03.png'],
+                maxParticleSize: 200,
+                fps: 40,
+              });
+            }
+          });
+        </script>
+      </div>
+
+      <div class="banner-placeholder">
+        <div class="banner">
+          <h1>In space and beyond</h1>
+          <canvas id="space-banner"></canvas>
+          <canvas id="space-banner2"></canvas>
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              if (typeof particleQuest !== 'undefined') {
+                new particleQuest({
+                  canvasSelector: '#space-banner',
+                  speed: 180,
+                  speedToEndDirection: 100,
+                  circleParticles: true,
+                  maxParticleSize: 25,
+                });
+                new particleQuest({
+                  canvasSelector: '#space-banner2',
+                  speed: 100,
+                  speedToEndDirection: 120,
+                  circleParticles: true,
+                  maxParticleSize: 10,
+                });
+              }
+            });
+          </script>
+        </div>
+      </div>
+      <div class="tool-space-code">
+        <div class="toggle-code">Show code example</div>
+        <div class="container">
+          <code>
+            <pre>
+                    <code class="language-html">&lt;canvas id=&quot;space-banner1&quot;&gt;&lt;/canvas&gt;
+&lt;canvas id=&quot;space-banner2&quot;&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof particleQuest !== 'undefined') {
+            new particleQuest({
+                canvasSelector: &quot;#space-banner1&quot;,
+                speed: 180,
+                speedToEndDirection: 100,
+                circleParticles: true,
+                maxParticleSize: 25,
+            });
+            new particleQuest({
+                canvasSelector: &quot;#space-banner2&quot;,
+                speed: 100,
+                speedToEndDirection: 120,
+                circleParticles: true,
+                maxParticleSize: 10,
+            });
+        }
+    });
+&lt;/script&gt;</code>
+                </pre>
+          </code>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <a href="https://github.com/terzom/particleQuest" target="_blank" class="btn-buy">
+        Available on github
+        <canvas id="buy-banner" width="200" height="50"></canvas>
+      </a>
+      <p style="text-align: center"><strong>⭐ Please star if you like it! ⭐</strong></p>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          if (typeof particleQuest !== 'undefined') {
+            new particleQuest({
+              canvasSelector: '#buy-banner',
+              speed: 30,
+              speedToEndDirection: 15,
+              textParticles: ['😍', '🤩'],
+              maxParticleSize: 250,
+            });
+          }
+        });
+      </script>
+    </footer>
+
+    <script>
+      function runParticleQuest() {
+        const speed = document.getElementById('speed').value;
+        const speedToEndDirection = document.getElementById('speedToEndDirection').value;
+        const maxParticleSize = document.getElementById('maxParticleSize').value;
+        const textParticles = document.getElementById('textParticles').value.split(',');
+        const urlImages = document.getElementById('urlImages').value.split(',');
+        const circleParticles = document.getElementById('circleParticles').checked;
+
+        const options = {
+          canvasSelector: '#myCanvas',
+          speed: parseInt(speed),
+          speedToEndDirection: parseInt(speedToEndDirection),
+          maxParticleSize: parseInt(maxParticleSize),
+        };
+
+        if (circleParticles) {
+          options.circleParticles = circleParticles;
+        } else if (textParticles.length > 0 && textParticles[0] !== '') {
+          options.textParticles = textParticles;
+        } else if (urlImages.length > 0) {
+          options.urlImages = urlImages;
+        }
+
+        new particleQuest(options);
+      }
+
+      document.querySelector('.tool .toggle').addEventListener('click', function () {
+        document.querySelector('.tool').classList.toggle('open');
+      });
+
+      document.querySelector('.tool-space-code .toggle-code').addEventListener('click', function () {
+        document.querySelector('.tool-space-code').classList.toggle('open');
+        document.querySelector('.tool-space-code .toggle-code').textContent = document
+          .querySelector('.tool-space-code')
+          .classList.contains('open')
+          ? 'Hide code example'
+          : 'Show code example';
+      });
+    </script>
+
+    <script>
+      window.onload = function () {
+        new particleQuest({
+          canvasSelector: '#myCanvas',
+          speed: 200,
+          speedToEndDirection: 100,
+          maxParticleSize: 200,
+          textParticles: ['🚀', '🛸', '🛰️'],
+        });
+      };
+    </script>
+    <script src="./../dist/particleQuest.min.js"></script>
+  </body>
+</html>
